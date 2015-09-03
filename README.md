@@ -48,7 +48,7 @@ registerComponent('customComponentName', Component)
 #### Use it in rails view
 
 ```erb
-<%= react_component('customComponentName', { user: User.last })
+<%= react_component('customComponentName', { user: User.last }) %>
 ```
 
 #### Use it in js
