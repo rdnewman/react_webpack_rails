@@ -1,0 +1,11 @@
+window.React = require('react');
+<% if options.example %>
+import HelloWorld from './components/hello-world';
+
+registerComponent('hello-world', HelloWorld);
+<% else %>
+// example usage:
+// import HelloWorld from './components/hello-world';
+
+// registerComponent('hello-world', HelloWorld);
+<% end %>

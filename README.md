@@ -1,5 +1,5 @@
 # ReactWebpackRails
-#### Rails - webpack setup with react integration.
+#### Rails - Webpack setup with React integration.
 Inspired and partially based on https://github.com/reactjs/react-rails/ this gem provides generators and helpers that makes react-webpack-rails integration easy.
 
 ## Installation
@@ -22,6 +22,24 @@ Then run installation:
 
     $ rails g react_webpack_rails:install
 
+This will create following files:
+
+```
+├── app
+│   └── react
+│       ├── components
+│       │   ├── hello-world.jsx
+│       │   └── hello-world-test.jsx
+│       └── index.js
+├── webpack
+│   ├── dev.config.js
+│   ├── production.config.js
+│   └── tests.config.js
+├── karma.conf.js
+├── package.json
+└── webpack.config.js
+```
+
 Establish the node packages (may take a few moments)
 
     $ npm install    # you may see warnings to consider updating the provided package.json file with license and repository
@@ -38,11 +56,12 @@ And require integration and bundle files in `application.js`
 ```
 
 ## Usage
+##### Check [docs](https://github.com/netguru/react_webpack_rails/tree/master/docs) for detailed api description.
 #### Register component in index.js
 
 ```js
 import Component from './components/some-component';
-registerComponent('customComponentName', Component)
+registerComponent('customComponentName', Component);
 ```
 
 #### Use it in rails view
@@ -51,10 +70,10 @@ registerComponent('customComponentName', Component)
 <%= react_component('customComponentName', { user: User.last }) %>
 ```
 
-#### Use it in js
+#### Use it in javascript file
 
 ```js
-var element = $('#my-element');
+const element = $('#my-element');
 renderComponent('customComponentName', {user_id: 1}, element);
 ```
 
@@ -66,7 +85,6 @@ Run webpack in watch mode using script:
 Or manually:
 
     $ webpack -w --config YOUR_CONFIG
-
 
 
 ### Production
