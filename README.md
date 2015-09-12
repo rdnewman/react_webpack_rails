@@ -97,8 +97,8 @@ or manually:
     $ webpack -p --config YOUR_CONFIG
 
 #### Heroku notes
-Heroku will generally assume that it is a Rails apps if deployed without further configuration. However, Heroku needs to install the node packages and use
-webpack to seed the asset pipeline with the `react_bundle`.
+Heroku will generally assume that it is a Rails application if deployed without further configuration. However, Heroku needs to install the
+node packages and use webpack to seed the asset pipeline with the `react_bundle`.
 
 Two main steps are necessary to allow the application to properly deploy onto Heroku.   First, tell Heroku that you're using two buildpacks and make sure
 the nodejs one is first:
