@@ -97,8 +97,8 @@ or manually:
     $ webpack -p --config YOUR_CONFIG
 
 #### Heroku notes
-Heroku will generally assume that yours is a Rails apps when you deploy.  However, Heroku needs to know to install the node packages and use webpack to
-seed the asset pipeline with your React code.
+Heroku will generally assume that it is a Rails apps if deployed without further configuration. However, Heroku needs to install the node packages and use
+webpack to seed the asset pipeline with the `react_bundle`.
 
 Two main steps are necessary to allow the application to properly deploy onto Heroku.   First, tell Heroku that you're using two buildpacks and make sure
 the nodejs one is first:
@@ -110,8 +110,8 @@ the nodejs one is first:
 ```
 
 Second, amend the provided `package.json` file to include a `postinstall` script that is the same as the build script (by default; otherwise
-however as configured for production as described earlier).  This `postinstall` script makes sure the final react file is put into `app/assets/javascript`
-before Heroku's `assets:precompile` step when it builds the Rails app.
+however as configured for production as described earlier for webpack).  This `postinstall` script makes sure the `react_bundle` file is put
+into `app/assets/javascript` before Heroku's `assets:precompile` step when it builds the Rails app.
 
 ```json
     "scripts": {
@@ -120,6 +120,12 @@ before Heroku's `assets:precompile` step when it builds the Rails app.
       "build": "webpack -p --config webpack/production.config.js",
       "postinstall": "webpack -p --config webpack/production.config.js"
     },
+```
+
+Deploying to Heroku should now work correctly:
+
+```bash
+    $ git push heroku master    # or however you'd like to push to Heroku
 ```
 
 ## Development
