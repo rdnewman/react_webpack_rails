@@ -96,6 +96,32 @@ or manually:
 
     $ webpack -p --config YOUR_CONFIG
 
+#### Heroku notes
+Heroku will generally assume that yours is a Rails apps when you deploy.  However, Heroku needs to know to install the node packages and use webpack to
+seed the asset pipeline with your React code.
+
+Two main steps are necessary to allow the application to properly deploy onto Heroku.   First, tell Heroku that you're using two buildpacks and make sure
+the nodejs one is first:
+
+```bash
+    $ heroku buildpacks:clear    # this line is only necessary if buildpacks were previously specified
+    $ heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs
+    $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-ruby
+```
+
+Second, amend the provided `package.json` file to include a `postinstall` script that is the same as the build script (by default; otherwise
+however as configured for production as described earlier).  This `postinstall` script makes sure the final react file is put into `app/assets/javascript`
+before Heroku's `assets:precompile` step when it builds the Rails app.
+
+```json
+    "scripts": {
+      "test": "karma start",
+      "start": "webpack -w --config webpack/dev.config.js",
+      "build": "webpack -p --config webpack/production.config.js",
+      "postinstall": "webpack -p --config webpack/production.config.js"
+    },
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
